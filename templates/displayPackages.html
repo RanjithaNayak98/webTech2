@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+.myLink {display: none}
+</style>
+
+<body class="w3-light-grey">
+
+<!-- Navigation Bar -->  <a href={{url_for('show_all')}} class="but1" style="color:black;position:absolute;right:50px;top:20px;"></i>Home</a>
+<div class="w3-bar w3-white w3-border-bottom w3-xlarge">
+  <a href="#" class="w3-bar-item w3-button w3-text-red w3-hover-red"><b><i class="fa fa-map-marker w3-margin-right"></i>Logo</b></a>
+  <a href="#" class="w3-bar-item w3-button w3-right w3-hover-red w3-text-grey"><i class="fa fa-search"></i></a>
+</div>
+
+
+  
+<div class="w3-row-padding w3-padding-16">
+	
+	{% for key,value in result.items() %}
+  <div class="w3-third w3-margin-bottom">
+    <!--<img src="/w3images/room_single.jpg" alt="Norway" style="width:100%">-->
+    <div class="w3-container w3-white">
+      <h3>{{ key }}</h3>
+      <script type="text/javascript">
+      </script>
+      
+      <h6 class="w3-opacity">{{ value[0] }}</h6>
+      <form action="">
+      <a class="w3-button w3-block w3-black w3-margin-bottom" href = {{ url_for('booknow', packId=value[1])}}>Click To View Details</a>
+      
+      </form>
+      <i class="fa fa-phone"></i><i class="fa fa-cutlery"></i><i class="fa fa-tv"></i>
+    </div>
+  </div>
+  {% endfor %}
+
+</div>
+
+<marquee direction="left" height="100%" width="100%" bgcolor="white"><a class="w3-button w3-block w3-black w3-margin-bottom" href = {{ url_for('suggest', cityname=cityname)}}>Packages for you!</a></marquee>
+
+
+
+<!-- End page content -->
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-center w3-opacity w3-margin-bottom">
+  <h5>Find Us On</h5>
+  <div class="w3-xlarge w3-padding-16">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+  </div>
+
+</footer>
+
+
+

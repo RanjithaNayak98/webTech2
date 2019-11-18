@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+.mySlides {display: none}
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.but {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  margin-top:10px;
+  margin-left:65px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.booked1{
+  background-color: green !important;
+
+}
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: green;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+li
+{
+margin:0 40px 0 0;
+}
+</style>
+</head>
+<script >
+function book(id)
+{
+
+var req = new XMLHttpRequest();
+req.open('POST','/tourism/blocked','true');
+req.setRequestHeader('content-type','application/x-www-form-urlencoded;charset=UTF-8');
+req.send('id='+id)
+
+}
+ function block(id)
+ {
+
+
+ 
+ }
+	
+function getCheckedBoxes() {
+
+
+   var pid=document.getElementById("packid").innerHTML;
+  var checkboxes = document.querySelectorAll("input[type='checkbox']");
+  var checkboxesChecked = [];
+  // loop over them all
+  var checked='';
+  for (var i=0; i<checkboxes.length; i++) {
+     // And stick the checked ones onto an array...
+     if (checkboxes[i].checked) {
+      if(checkboxes[i].disabled==false){
+      if(checked==''){
+        checked=checked+checkboxes[i].id;
+      }
+      else{
+        checked=checked+';'+checkboxes[i].id;
+     }}
+     checkboxesChecked.push(checkboxes[i]);
+   }
+  }
+  // Return the array if it is non-empty, or null
+   console.log(checkboxesChecked.length)
+   seats=checkboxesChecked.length;
+   console.log(checked);
+   var req = new XMLHttpRequest();
+   req.open('POST','/tourism/booked/','true');
+   req.setRequestHeader('content-type','application/x-www-form-urlencoded;charset=UTF-8');
+   req.onreadystatechange=function()
+   {
+    if(req.readyState==XMLHttpRequest.DONE && req.status==200)
+    {
+      window.location.href='/result';
+    }
+   }
+   req.send('id1='+seats+";"+pid+";"+checked);
+   
+}
+
+</script>
+
+
+
+<!-- Navigation Bar -->
+<div class="w3-bar w3-white w3-border-bottom w3-xlarge">
+  <a href="#" class="w3-bar-item w3-button w3-text-red w3-hover-red"><b><i class="fa fa-map-marker w3-margin-right"></i>Logo</b></a>
+  <a href="#" class="w3-bar-item w3-button w3-right w3-hover-red w3-text-grey"><i class="fa fa-search"></i></a>
+</div>
+
+
+
+
+<body>
+<div>
+<div align="center" class="boundary" style="border:solid black; border-radius:50px;width:250px;height:650px;">
+
+<ol >
+<li class="1" style="display:inline-block">
+<label class="container">1
+  <input type="checkbox" id="1" name="mycheckboxes" onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+<li style="display:inline-block;">
+<label class="container">2
+  <input type="checkbox" id="2" name="mycheckboxes" onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+</ol>
+
+<ol>
+<li style="display:inline-block;">
+<label class="container">3
+  <input type="checkbox"  id="3" name="mycheckboxes" onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+<li style="display:inline-block;">
+<label class="container">4
+  <input type="checkbox" id="4" name="mycheckboxes" onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+</ol>
+
+<ol>
+<li style="display:inline-block;">
+<label class="container">5
+  <input type="checkbox" id="5" name="mycheckboxes" onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+<li style="display:inline-block;">
+<label class="container">6
+  <input type="checkbox" id="6" name="mycheckboxes" onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+</ol>
+
+<ol>
+<li style="display:inline-block;">
+<label class="container">7
+  <input type="checkbox" id="7" name="mycheckboxes" onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+<li style="display:inline-block;">
+<label class="container">8
+  <input type="checkbox" id="8"name="mycheckboxes"  onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+</ol>
+
+<ol>
+<li style="display:inline-block;">
+<label class="container">9
+  <input type="checkbox" id="9" name="mycheckboxes" onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+<li style="display:inline-block;">
+<label class="container">10
+  <input type="checkbox" id="10" name="mycheckboxes" onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+</ol>
+
+<ol>
+<li style="display:inline-block;">
+<label class="container">11
+  <input type="checkbox" id="11"name="mycheckboxes"  onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+<li style="display:inline-block;">
+<label class="container">12
+  <input type="checkbox" id="12" name="mycheckboxes" onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+</ol>
+
+<ol>
+<li style="display:inline-block;">
+<label class="container">13
+  <input type="checkbox" id="13" name="mycheckboxes" onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+<li style="display:inline-block;">
+<label class="container">14
+  <input type="checkbox" id="14" name="mcheckboxes"  onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+</ol>
+
+<ol>
+<li style="display:inline-block;">
+<label class="container">15
+  <input type="checkbox" id="15" name="mycheckboxes" onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+<li style="display:inline-block;">
+<label class="container">16
+  <input type="checkbox" id="16" name="mycheckboxes" onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+</ol>
+
+<ol>
+<li style="display:inline-block;">
+<label class="container">17
+  <input type="checkbox" id="17" name="mycheckboxes" onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+<li style="display:inline-block;">
+<label class="container">18
+  <input type="checkbox" id="18" name="mycheckboxes" onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+</ol>
+
+<ol>
+<li style="display:inline-block;">
+<label class="container">19
+  <input type="checkbox" id="19" name="mycheckboxes" onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+<li style="display:inline-block;">
+<label class="container">20
+  <input type="checkbox" id="20" name="mycheckboxes" onclick="block(id)">
+  <span class="checkmark"></span>
+</label>
+</li>
+</ol>
+
+</div>
+<p id="packid">{{ data }} </p>
+<button class="but"name="submit" onclick="getCheckedBoxes()">Confirm</button>
+</div>
+<script type="text/javascript">
+  var booked='{{booked}}';
+  var seats=booked.split(";");
+  for(i=0;i<seats.length;i++){
+    document.getElementById(seats[i]).checked=true;
+    document.getElementById(seats[i]).disabled=true;
+    document.getElementById(seats[i]).setAttribute("class","booked1");
+   
+  }
+
+</script>
+</body>

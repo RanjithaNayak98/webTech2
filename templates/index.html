@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+.myLink {display: none}
+</style>
+<head>
+    <script type="text/javascript">
+        function updateTextInput(val) {
+          document.getElementById('textInput').value=val; 
+        }
+
+        function init(){
+            xhr = new XMLHttpRequest;   
+            if(xhr)
+            {
+                xhr.onreadystatechange = getContent;
+                xhr.open("GET", "/static/content.txt");
+                xhr.send(null);
+            }   
+        }
+        function getContent(){
+        
+        if(xhr.readyState=="4"&&xhr.status==200){
+                var arr=(xhr.responseText).split(";");
+                document.getElementById("pisa").innerHTML=arr[0];
+                document.getElementById("ny").innerHTML=arr[0];
+                document.getElementById("sanfran").innerHTML=arr[0];
+                document.getElementById("terre").innerHTML=arr[0];
+                document.getElementById("paris").innerHTML=arr[0]; 
+                setTimeout(getPic, 4000);   
+          }
+        }
+        function getPic(){
+        
+            xhr.open("GET", "static/image.txt", true);
+            xhr.onreadystatechange = showImg;
+            xhr.send(null);
+        }
+        function showImg()
+        {
+            if(xhr.readyState == 4 && xhr.status == 200)
+            {
+                console.log(xhr.responseText);
+                var arr1=(xhr.responseText).split(";");
+                //document.getElementById("pisa").innerHTML=arr1[3];
+                //document.getElementById("ny").innerHTML=arr1[1];
+                //document.getElementById("sanfran").innerHTML=arr1[2];
+                document.getElementById("terre").innerHTML=arr1[0];
+                //document.getElementById("paris").innerHTML=arr1[4]; 
+                setTimeout(getMorePics,2000);
+            }
+            
+        }
+        function getMorePics(){
+        
+                
+                xhr.open("GET","static/image.txt",true);
+                xhr.onreadystatechange=showMoreImgs;
+                xhr.send(null);
+        }
+        function showMoreImgs(){
+        
+                if(xhr.readyState==4 && xhr.status==200){
+
+                    var arr2=(xhr.responseText).split(";");
+                    //console.log(arr2);
+                    document.getElementById("pisa").innerHTML = arr2[3];
+                    document.getElementById("ny").innerHTML = arr2[1];
+                    document.getElementById("sanfran").innerHTML = arr2[2];
+                    document.getElementById("paris").innerHTML = arr2[4];
+                }
+        
+        
+        }
+
+        
+    </script>
+</head>
+<body onload="init()" class="w3-light-grey">
+
+<!-- Navigation Bar -->
+<div class="w3-bar w3-white w3-border-bottom w3-xlarge">
+  <a href="#" class="w3-bar-item w3-button w3-text-red w3-hover-red"><b><i class="fa fa-map-marker w3-margin-right"></i>Letsgo</b></a>
+  <a href={{url_for('log')}} class="w3-bar-item w3-button w3-right w3-hover-red w3-text-grey">Login</a>
+
+  <a href={{url_for('logout')}} class="w3-bar-item w3-button w3-right w3-hover-red w3-text-grey">Logout</a>
+</div>
+
+<!-- Header -->
+<header class="w3-display-container w3-content w3-hide-small" style="max-width:1500px">
+  <img class="w3-image" src="/static/w3images/london2.jpg" alt="London" width="1500" height="700">
+  <div class="w3-display-middle" style="width:65%">
+    <div class="w3-bar w3-black">
+      <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Flight');"><i class="fa fa-plane w3-margin-right"></i></button>
+      <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Hotel');"><i class="fa fa-bed w3-margin-right"></i></button>
+      <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Car');"><i class="fa fa-car w3-margin-right"></i></button>
+    </div>
+
+    <!-- Tabs -->
+    <form action="/tourism/searchPackages/" method="post">
+  
+    <div id="Flight" class="w3-container w3-white w3-padding-16 myLink">
+      <h3>Travel the world with us</h3>
+      <div class="w3-row-padding" style="margin:0 -16px;">
+        <div class="w3-half">
+          <label>To</label>
+          <input class="w3-input w3-border" type="text" placeholder="City" name="city">
+        </div>
+        <div class="w3-half">
+          <label>Start Date</label>
+          <input class="w3-input w3-border" type="date" name="date">
+        </div>
+         <div class="w3-half">
+          <label>Price Range</label>
+          <input type="range" name="rangeInput" min="2000" max="10000" onchange="updateTextInput(this.value);"><br>
+          <input class="w3-input w3-border" type="text" id="textInput" value="">
+        </div>
+        <div class="w3-half">
+          <label>Number of Days</label>
+          <input class="w3-input w3-border" type="text" name="days">
+        </div>>
+
+      </div>
+      <p><input type ="submit" value="Search and Find Packages" class="w3-button w3-dark-grey" id ="submit"></input></p>
+    </div>
+</form>
+    <div id="Hotel" class="w3-container w3-white w3-padding-16 myLink">
+      <h3>Find the best hotels</h3>
+      <p>Book a hotel with us and get the best fares and promotions.</p>
+      <p>We know hotels - we know comfort.</p>
+      <p><button class="w3-button w3-dark-grey">Search Hotels</button></p>
+    </div>
+
+    <div id="Car" class="w3-container w3-white w3-padding-16 myLink">
+      <h3>Best car rental in the world!</h3>
+      <p><span class="w3-tag w3-deep-orange">DISCOUNT!</span> Special offer if you book today: 25% off anywhere in the world with CarServiceRentalRUs</p>
+      <input class="w3-input w3-border" type="text" placeholder="Pick-up point">
+      <p><button class="w3-button w3-dark-grey">Search Availability</button></p>
+    </div>
+  </div>
+</header>
+
+<!-- Page content -->
+<div class="w3-content" style="max-width:1100px;">
+
+  <!-- Good offers -->
+  <div class="w3-container w3-margin-top">
+  <form>
+    <a class="w3-button w3-block w3-black w3-margin-bottom" href = {{ url_for('bestoffers') }}>Best Offers</a>
+  </form>
+   
+  </div>
+  <div class="w3-row-padding w3-text-white w3-large">
+    <div class="w3-half w3-margin-bottom">
+      <div class="w3-display-container" id="terre">
+      </div>
+    </div>
+    <div class="w3-half">
+      <div class="w3-row-padding" style="margin:0 -16px">
+        <div class="w3-half w3-margin-bottom">
+          <div class="w3-display-container" id="ny">
+          </div>
+        </div>
+        <div class="w3-half w3-margin-bottom">
+          <div class="w3-display-container" id="sanfran">            
+          </div>
+        </div>
+      </div>
+      <div class="w3-row-padding" style="margin:0 -16px">
+        <div class="w3-half w3-margin-bottom">
+          <div class="w3-display-container" id="pisa">            
+          </div>
+        </div>
+        <div class="w3-half w3-margin-bottom">
+          <div class="w3-display-container" id="paris">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Newsletter -->
+  <div class="w3-container">
+    <div class="w3-panel w3-padding-16 w3-black w3-opacity w3-card w3-hover-opacity-off">
+      <h2>Get the best offers first!</h2>
+      <p>Join our newsletter.</p>
+      <label>E-mail</label>
+      <form action="{{ url_for('subscribe') }}" method="POST">
+        <input class="w3-input w3-border" type="text" name="mail" placeholder="Your email address">
+        <input type="submit" class="w3-button w3-red w3-margin-top">
+      </form>
+    </div>
+  </div>
+  
+  <!-- Contact -->
+  <div class="w3-container">
+    <h2>Contact</h2>
+    <p>Let us book your next trip!</p>
+    <i class="fa fa-map-marker" style="width:30px"></i> Bengaluru, India<br>
+    <i class="fa fa-phone" style="width:30px"></i> Phone: +91 9901646330 <br>
+    <i class="fa fa-envelope" style="width:30px"> </i> Email: tourismprp@mail.com<br>
+    <form action="/action_page.php" target="_blank">
+      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="Name"></p>
+      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Email" required name="Email"></p>
+      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Message" required name="Message"></p>
+      <p><button class="w3-button w3-black w3-padding-large" type="submit">SEND MESSAGE</button></p>
+    </form>
+  </div>
+  
+<!-- End page content -->
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-center w3-opacity w3-margin-bottom">
+  <h5>Find Us On</h5>
+  <div class="w3-xlarge w3-padding-16">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+  </div>
+</footer>
+
+<script>
+// Tabs
+function openLink(evt, linkName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("myLink");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+  }
+  document.getElementById(linkName).style.display = "block";
+  evt.currentTarget.className += " w3-red";
+}
+
+// Click on the first tablink on load
+document.getElementsByClassName("tablink")[0].click();
+</script>
+
+</body>
+</html>

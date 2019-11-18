@@ -1,0 +1,37 @@
+<?php
+session_start();
+?>
+
+<html>
+<script>
+function x()
+{
+	var source=new EventSource("/tourism/availability");
+	var p=document.getElementById("a");
+	/*source.addEventListener=("message",function(e) {
+	p.innerHTML=e.data;
+	});*/
+	source.onmessage=function(e) 
+	{
+	var p=e.data.split(";");
+	
+	var p1=document.getElementById(p[1]);
+	p1.innerHTML=p[0]
+	};
+	
+}
+</script>
+<!---<form action='/tourism/bus' method="post">
+<input type="submit" name="username" id="1"></input>
+
+</form>--->
+<body onload="x()">
+<a href = {{ url_for('bus', packId=1) }}>Book Now</a>
+<h1>number of seats left</h1>
+<p id="1">20</p>
+<a href = {{ url_for('bus', packId=2) }}>Book Now</a>
+<h1>number of seats left</h1>
+<p id="2">20</p>
+</body>
+
+</html>

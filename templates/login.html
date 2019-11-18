@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style type="text/css">
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-y: scroll; 
+}
+
+.but {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 17px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: black;
+  background-color: #66ccff;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  margin:5px;
+  width:160px;
+  height:50px;
+}
+
+.but:hover {background-color: #3e8e41}
+
+.but:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+body {
+  background-image: url("/static/w3images/login.jpg");
+  font-family: 'Titillium Web', sans-serif;
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+
+a {
+  text-decoration:none;
+  color:#1ab188;
+  transition:.5s ease;
+  &:hover {
+    color:darken(#1ab188,5%);
+  }
+}
+
+.form {
+  background:rgba(#13232f,.9);
+  padding: 40px;
+  max-width:600px;
+  margin:40px auto;
+  border-radius:4px;
+  box-shadow:0 4px 10px 4px rgba(#13232f,.3);
+}
+
+.tab-group {
+  list-style:none;
+  padding:0;
+  margin:0 0 40px 0;
+  &:after {
+    content:  ;
+    display: table;
+    clear: both;
+  }
+  li a {
+    display:block;
+    text-decoration:none;
+    padding:15px;
+    background:rgba(#a0b3b0,.25);
+    color:#a0b3b0;
+    font-size:20px;
+    float:left;
+    width:50%;
+    text-align:center;
+    cursor:pointer;
+    transition:.5s ease;
+    &:hover {
+      background:darken(#1ab188,5%);
+      color:#ffffff;
+    }
+  }
+  .active a {
+    background:#1ab188;
+    color:#ffffff;
+  }
+}
+
+.tab-content > div:last-child {
+  display:none;
+}
+
+
+h1 {
+  text-align:center;
+  color:#ffffff;
+  font-weight:300;
+  margin:0 0 40px;
+}
+
+label {
+  position:absolute;
+  transform:translateY(6px);
+  left:13px;
+  color:rgba(#ffffff,.5);
+  transition:all 0.25s ease;
+  -webkit-backface-visibility: hidden;
+  pointer-events: none;
+  font-size:22px;
+  .req {
+    margin:2px;
+    color:;
+  }
+}
+
+label.active {
+  transform:translateY(50px);
+  left:2px;
+  font-size:14px;
+  .req {
+    opacity:0;
+  }
+}
+
+label.highlight {
+  color: #ffffff;
+}
+
+input, textarea {
+  font-size:22px;
+  display:block;
+  width:100%;
+  height:100%;
+  padding:5px 10px;
+  background:none;
+  background-image:none;
+  border:1px solid #a0b3b0;
+  color:#ffffff;
+  border-radius:0;
+  transition:border-color .25s ease, box-shadow .25s ease;
+  &:focus {
+    outline:0;
+    border-color:#1ab188;
+  }
+}
+
+textarea {
+  border:2px solid #a0b3b0;
+  resize: vertical;
+}
+
+.field-wrap {
+  position:relative;
+  margin-bottom:40px;
+}
+
+.top-row {
+  &:after {
+    content:  ;
+    display: table;
+    clear: both;
+  }
+
+  > div {
+    float:left;
+    width:48%;
+    margin-right:4%;
+    &:last-child { 
+      margin:0;
+    }
+  }
+}
+
+.button {
+  border:0;
+  outline:none;
+  border-radius:0;
+  padding:15px 0;
+  font-size:2rem;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  background:#1ab188;
+  color:#ffffff;
+  transition:all.5s ease;
+  -webkit-appearance: none;
+  &:hover, &:focus {
+    background:darken(#1ab188,5%);
+  }
+}
+
+.button-block {
+  display:block;
+  width:100%;
+}
+
+.forgot {
+  margin-top:-20px;
+  text-align:right;
+}
+.but1 {
+  background-color: #fff;
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-size: 16px;
+ right:500px;
+  border-radius: 10px;
+  
+}
+  </style>
+
+</head>
+
+<body >
+
+<div class="form">
+      
+      <ul class="tab-group">
+       <!--- <li  href="#signup"><a class="but1" href="#signup" style="color:black;position:absolute;right:0;top:0;">Sign Up</a></li>--->
+        <li  href="#login"><a class="but1" href="/log"style="color:black;position:absolute;right:0px;top:0;">Log In</a></li>
+      </ul>
+      
+      <div class="tab-content">
+        <div id="signup">   
+          <h1>Sign Up for Free</h1>
+          
+          <form action="/register" method="POST">
+          
+          <div class="top-row">
+            <div class="field-wrap">
+              <label>
+                User Name<span class="req">*</span>
+              </label>
+              <input type="text" name="username" required autocomplete="off" />
+            </div>
+        
+            <div class="field-wrap">
+              <label>
+                Email<span class="req">*</span>
+              </label>
+              <input type="email" name="email" required autocomplete="off"/>
+            </div>
+          </div>
+
+          <div class="field-wrap">
+            <label>
+              Phone number<span class="req">*</span>
+            </label>
+            <input type="text" name="phonenumber" required autocomplete="off"/>
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              Set A Password<span class="req">*</span>
+            </label>
+            <input type="password" name="password" required autocomplete="off"/>
+          </div>
+         <input type="text" id="area" name="Interest" placeholder="Interest" style="color:black;">
+           <br>
+           <p id="err"></p>
+           <br>
+	</button>
+
+<li class="pv-add-with-suggestions__suggested-skill" style="display:inline">
+ <button class="but" role="checkbox"  id="beach" onclick="add(this.id)"  type="button">
+ <span id="1"   style="display:inline;">beach</span>
+</button>
+ </li>
+ 
+ <li class="pv-add-with-suggestions__suggested-skill" style="display:inline">
+ <button class="but" role="checkbox"  id="holy" onclick="add(this.id)"  type="button">
+ <span id="1"   style="display:inline;">holy</span>
+
+ </button>
+ </li>
+ <li class="pv-add-with-suggestions__suggested-skill" style="display:inline">
+ <button class="but" role="checkbox"  id="trek" onclick="add(this.id)"  type="button">
+ <span id="1"   style="display:inline;">trek</span>
+ </button>
+ </li>
+ <li class="pv-add-with-suggestions__suggested-skill" style="display:inline">
+ <button class="but" role="checkbox"  id="Historic" onclick="add(this.id)"  type="button">
+ <span id="1"   style="display:inline;">Historic</span>
+ </button>
+ </li>
+ 
+ <li class="pv-add-with-suggestions__suggested-skill" style="display:inline">
+ <button class="but" role="checkbox"  id="Park" onclick="add(this.id)"  type="button">
+ <span id="1"   style="display:inline;">Park</span>
+ </button>
+ </li>
+ 
+ <li class="pv-add-with-suggestions__suggested-skill" style="display:inline">
+ <button class="but" role="checkbox"  id="Amusement" onclick="add(this.id)"  type="button">
+ <span id="1"   style="display:inline;">Amusement</span>
+ </button>
+ </li>
+ 
+ <li class="pv-add-with-suggestions__suggested-skill" style="display:inline">
+ <button class="but" role="checkbox"  id="lake" onclick="add(this.id)"  type="button">
+ <span id="1"   style="display:inline;">lake</span>
+ </button>
+ </li>
+
+ <li class="pv-add-with-suggestions__suggested-skill" style="display:inline">
+ <button class="but" role="checkbox"  id="waterfalls" onclick="add(this.id)"  type="button">
+ <span id="1"   style="display:inline;">water falls</span>
+</button>
+ </li>
+
+ <li class="pv-add-with-suggestions__suggested-skill" style="display:inline">
+ <button class="but" role="checkbox"  id="party" onclick="add(this.id)"  type="button">
+ <span id="1"   style="display:inline;">party</span>
+</button>
+ </li> 
+
+  <li class="pv-add-with-suggestions__suggested-skill" style="display:inline">
+ <button class="but" role="checkbox"  id="market" onclick="add(this.id)"  type="button">
+ <span id="1"   style="display:inline;">market</span>
+</button>
+ </li>
+ <br>
+ <br>
+          <button type="submit" class="button button-block"/>Submit</button>
+          
+          </form>
+
+      </div>
+        
+      <script type="text/javascript">
+var count=0;
+function add(id)
+{	//alert(count);
+	var p= document.getElementById("area");
+	//alert(p.name);
+	var b = document.getElementById(id);
+	if(count<4){
+		p.value+=id+";"
+		count+=1;}
+	else{
+		var e= document.getElementById("err");
+		e.innerHTML="Max Limit Is 4";
+		}
+	
+	b.style.display="none";
+}
+  $('.form').find('input, textarea').on('keyup blur focus', function (e) {
+  var $this = $(this),
+      label = $this.prev('label');
+    if (e.type === 'keyup') {
+      if ($this.val() === '') {
+          label.removeClass('active highlight');
+        } else {
+          label.addClass('active highlight');
+        }
+    } else if (e.type === 'blur') {
+      if( $this.val() === '' ) {
+        label.removeClass('active highlight'); 
+      } else {
+        label.removeClass('highlight');   
+      }   
+    } else if (e.type === 'focus') {
+      
+      if( $this.val() === '' ) {
+        label.removeClass('highlight'); 
+      } 
+      else if( $this.val() !== '' ) {
+        label.addClass('highlight');
+      }
+    }
+
+});
+$('.tab').on('click',function(){
+  
+  $(this).parent().addClass('active');
+  $(this).parent().siblings().removeClass('active');
+  target = $(this).attr('href');
+
+  $('.tab-content > div').not(target).hide();
+  
+  $(target).fadeIn(600);
+  
+});
+</script>
+</body>
+</html>

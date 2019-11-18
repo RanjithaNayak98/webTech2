@@ -1,0 +1,25 @@
+<html>
+<script>
+
+function x()
+{
+	var source=new EventSource("/tourism/availability");
+	var p=document.getElementById("a");
+	/*source.addEventListener=("message",function(e) {
+	p.innerHTML=e.data;
+	});*/
+	source.onmessage=function(e) 
+	{
+	var p=document.getElementById("a");
+	p.innerHTML=e.data
+	};
+	
+}
+
+
+</script>
+<body onload="x()">
+<h1>number of seats left</h1>
+<p id="a"></p>
+</body>
+</html>
