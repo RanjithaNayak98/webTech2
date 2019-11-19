@@ -1,0 +1,1 @@
+<img src='/static/w3images/loading.gif'  class="loading" alt='loading' height='70px' width=70px'/>
